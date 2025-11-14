@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Epic Verify - Fortnite Skin Check</title>
+  <style>
+    body { 
+      font-family: 'Segoe UI', sans-serif; 
+      background: #1a1a2e; 
+      color: #eee; 
+      text-align: center; 
+      padding: 50px;
+    }
+    .container { max-width: 600px; margin: auto; }
+    button {
+      background: #00d4ff; 
+      color: #000; 
+      font-weight: bold;
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover { background: #00b0d4; }
+    .logo { font-size: 48px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">🎮</div>
+    <h1>Fortnite Skin Check</h1>
+    <p>Verify with Epic to show off your locker in Discord!</p>
+    <button onclick="startAuth()">VERIFY WITH EPIC</button>
+  </div>
+
+  <script>
+    function startAuth() {
+      const state = Date.now() + "_" + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem("auth_state", state);
+      const params = new URLSearchParams({
+        client_id: "<%= EPIC_CLIENT_ID %>",
+        redirect_uri: "<%= REDIRECT_URI %>",
+        response_type: "code",
+        scope: "basic_profile",
+        state: state
+      });
+      window.location = `https://www.epicgames.com/id/authorize?${params}`;
+    }
+  </script>
+</body>
+</html>
